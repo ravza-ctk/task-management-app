@@ -1,0 +1,20 @@
+
+<nav class="main-nav">
+  <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Görev Listesi</a>
+  <button (click)="toggleCalendar()" class="calendar-toggle-btn">Takvimi Aç / Kapat</button>
+</nav>
+
+<!-- Takvim bileşeni yalnızca showCalendar true olduğunda görünsün -->
+<app-calendar *ngIf="showCalendar"></app-calendar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+
+
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

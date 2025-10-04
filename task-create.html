@@ -1,0 +1,51 @@
+<form (ngSubmit)="createTask()" #taskForm="ngForm">
+
+  <input
+    type="text"
+    [(ngModel)]="title"
+    name="title"
+    placeholder="Görev Başlığı"
+    required
+  />
+
+  <label>
+    <input type="checkbox" [(ngModel)]="isRecurring" name="isRecurring" />
+    Sürekli görev
+  </label>
+
+  <div *ngIf="isRecurring">
+  <label for="endDate">Bitiş Tarihi:</label>
+  <input type="date" [(ngModel)]="task.endDate" name="endDate" />
+
+    <input
+      type="datetime-local"
+      [(ngModel)]="end"
+      name="end"
+      required
+    />
+
+    <label>
+      Tekrar sıklığı:
+      <select [(ngModel)]="repeat" name="repeat">
+        <option value="">Seç</option>
+        <option value="DAILY">Günlük</option>
+        <option value="WEEKLY">Haftalık</option>
+        <option value="MONTHLY">Aylık</option>
+        <option value="YEARLY">Yıllık</option>
+      </select>
+    </label>
+
+    <label>
+      Bitiş tarihi:
+      <input type="date" [(ngModel)]="repeatUntil" name="repeatUntil" />
+    </label>
+  </div>
+  
+  <label>
+  <input type="checkbox" [(ngModel)]="task.isAllDay" />
+  Tüm Gün / Saat Belirsiz
+  </label>
+
+
+  <button type="submit">Ekle</button>
+</form>

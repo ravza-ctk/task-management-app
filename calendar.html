@@ -1,0 +1,108 @@
+<div *ngIf="showCustomPopup" class="custom-popup">
+  <ng-container *ngTemplateOutlet="content; context: {$implicit: newTask}"></ng-container>
+  <ng-container *ngTemplateOutlet="footer; context: {$implicit: newTask}"></ng-container>
+</div>
+
+
+
+<!-- HEADER TEMPLATE -->
+<ng-template #header let-data>
+  <div class="popup-header">
+    <h3>Yeni Görev</h3>
+  </div>
+</ng-template>
+
+<!-- CONTENT TEMPLATE -->
+<ng-template #content let-data>
+  <div class="popup-content">
+    <label>Görev ismi</label>
+    <input class="form-input" type="text" [(ngModel)]="newTask.Subject" />
+
+    <label>Başlangıç Tarihi</label>
+    <input class="form-input" type="date" [(ngModel)]="newTask.StartDate" />
+
+    <label>Başlangıç Saati</label>
+    <input
+      class="form-input"
+      type="time"
+      [(ngModel)]="newTask.StartTime"
+      [disabled]="newTask.IsAllDay"
+    />
+
+    <label>Bitiş Tarihi</label>
+    <input class="form-input" type="date" [(ngModel)]="newTask.EndDate" />
+
+    <label>Bitiş Saati</label>
+    <input
+      class="form-input"
+      type="time"
+      [(ngModel)]="newTask.EndTime"
+      [disabled]="newTask.IsAllDay"
+    />
+
+    <div class="form-checkbox">
+      <input
+        type="checkbox"
+        [(ngModel)]="newTask.IsAllDay"
+        id="allDay"
+        (ngModelChange)="onAllDayToggle()"
+      />
+      <label for="allDay">Tüm Gün/Saat Belirsiz</label>
+    </div>
+
+    <label>Tekrar</label>
+    <select class="form-input" [(ngModel)]="newTask.RecurrenceRule">
+      <option value="">Yok</option>
+      <option value="FREQ=DAILY;INTERVAL=1">Her Gün</option>
+      <option value="FREQ=WEEKLY;INTERVAL=1">Her Hafta</option>
+      <option value="FREQ=MONTHLY;INTERVAL=1">Her Ay</option>
+    </select>
+
+    <label>Kategori</label>
+    <input class="form-input" type="text" [(ngModel)]="newTask.Category" />
+
+    <label>Açıklama</label>
+    <textarea class="form-textarea" [(ngModel)]="newTask.Description"></textarea>
+  </div>
+</ng-template>
+
+<ng-template #footer let-data>
+
+<div class="popup-footer"> <button class="btn save-btn" (click)="addTask()">KAYDET</button> <button class="btn cancel-btn" (click)="cancelPopup()">İPTAL</button> </div> </ng-template>
+
+<!-- TAKVİM -->
+ 
+
+<!--  (popupOpen)="onPopupOpen($event)"   --> 
+<ejs-schedule
+  #scheduleObj
+  height="850"
+  width="1250"
+  [currentView]="setView"
+  [selectedDate]="setDate"
+  [eventSettings]="eventObject"
+  [quickInfoTemplates]="{ header: header, content: content, footer: footer}"
+  [readonly]="false"
+  [quickInfoTemplates]="quickInfoTemplates"
+  (dragStart)="onDragStart($event)"
+  (dragStop)="onEventDragStop($event)"
+  (resizeStart)="onResizeStart($event)"
+  (resizeStop)="onEventResizeStop($event)">
+
+  width='100%'
+  height='650px'
+  [selectedDate]='selectedDate'
+  [eventSettings]='eventSettings'>
+
+</ejs-schedule>
+
+<!-- AĞAÇ -->
+<ejs-treeview
+  id="treeview"
+  [fields]="treeFields"
+  allowDragAndDrop="true"
+  (nodeDragStop)="onTreeDragStop($event)">
+</ejs-treeview>
+
+
+

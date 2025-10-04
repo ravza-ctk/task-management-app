@@ -1,0 +1,45 @@
+/* Ana Navigasyon Çubuğu Stilleri */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Linkler arasına 1.5rem (yaklaşık 24px) boşluk ekler */
+  padding: 1rem 2rem; /* İçten boşluk (üst-alt ve sağ-sol) */
+  background-color: #f8f9fa; /* Hafif gri bir arka plan */
+  border-bottom: 1px solid #dee2e6; /* Altına ince bir çizgi */
+}
+
+/* Navigasyon Linkleri */
+.main-nav a {
+  text-decoration: none; /* Linklerin altındaki çizgiyi kaldırır */
+  color: #007acc; /* Link rengi */
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Üzerine gelince renk değiştir */
+.main-nav a:hover {
+  color: #0056b3;
+}
+
+/* Aktif olan (seçili) link */
+.main-nav a.active-link {
+  color: #0056b3; /* Aktif linkin rengini koyulaştırır */
+  border-bottom: 2px solid #0056b3; /* Aktif linkin altına belirgin bir çizgi ekler */
+}
+
+/* Ana İçerik Alanı */
+.container {
+  padding: 2rem; /* Sayfa içeriğine kenarlardan boşluk verir */
+}
+
+.calendar-toggle-btn {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

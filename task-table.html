@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Baslik</th>
+      <th>Baslangiç</th>
+      <th>Bitis</th>
+      <th>Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of events">
+      <td>{{ event.summary }}</td>
+      <td>{{ event.start.dateTime | date: 'short' }}</td>
+      <td>{{ event.end.dateTime | date: 'short' }}</td>
+      <td><button (click)="deleteEvent(event.id)">🗑️</button></td>
+    </tr>
+  </tbody>
+</table>

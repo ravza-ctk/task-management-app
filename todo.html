@@ -1,0 +1,98 @@
+<div class="search-container-large">
+  <input
+    #searchInput
+    type="text"
+    placeholder="Görevlerde ara..."
+    (input)="performSearch(searchInput.value)"
+    (keyup.enter)="performSearch(searchInput.value)"
+  />
+  <button (click)="performSearch(searchInput.value)">Ara</button>
+  <button
+    *ngIf="searchInput.value"
+    (click)="searchInput.value = ''; performSearch('')"
+    class="clear-button"
+  >
+    Temizle
+  </button>
+</div>
+
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <input formControlName="title" placeholder="Yeni görev ekle..." required />
+  <input formControlName="description" placeholder="Açıklama (isteğe bağlı)" />
+  <input type="date" formControlName="dueDate" />
+  <select formControlName="priority">
+    <option value="low">Düşük</option>
+    <option value="medium">Orta</option>
+    <option value="high">Yüksek</option>
+  </select>
+  <input formControlName="tags" placeholder="Etiketler (virgülle)" />
+  <button type="submit">Ekle</button>
+</form>
+
+<div *ngIf="selectedIds.size > 0" class="bulk-actions">
+  <span>{{ selectedIds.size }} görev seçildi</span>
+  <div class="buttons">
+    <button (click)="completeSelected()" class="complete-button">Seçilenleri Tamamla</button>
+    <button (click)="deleteSelected()" class="delete-button">Seçilenleri Sil</button>
+  </div>
+</div>
+
+<div *ngIf="(reminderTodos$ | async) as reminders" class="reminders">
+  <h3 *ngIf="reminders.length > 0">🔔 Yaklaşan Görevler</h3>
+  <div *ngFor="let todo of reminders">
+    📌 <strong>{{ todo.title }}</strong> - Bitiş: {{ todo.dueDate | date:'shortDate' }}
+  </div>
+</div>
+
+<div *ngIf="activeTag.value" class="active-filter">
+  <span>Filtre: <strong>#{{ activeTag.value }}</strong></span>
+  <button (click)="clearTagFilter()">Filtreyi Temizle</button>
+</div>
+
+<div class="todo-list">
+  <div *ngIf="(filteredTodos$ | async)?.length === 0" class="empty-state">
+    Gösterilecek görev yok.
+  </div>
+
+  <div
+    class="todo-item"
+    *ngFor="let todo of filteredTodos$ | async"
+    [class.selected]="isSelected(todo.id)"
+  >
+    <input
+      type="checkbox"
+      class="todo-checkbox"
+      [checked]="isSelected(todo.id)"
+      (change)="toggleSelection(todo.id)"
+    />
+
+    <div class="content">
+      <span [ngClass]="{ completed: todo.completed }">{{ todo.title }}</span>
+      <p *ngIf="todo.description" class="todo-description">
+        {{ todo.description }}
+      </p>
+      <div class="tags" *ngIf="todo.tags?.length">
+        <span
+          class="tag"
+          *ngFor="let tag of todo.tags"
+          (click)="filterByTag(tag)"
+        >
+          #{{ tag }}
+        </span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button
+        (click)="toggleCompleted(todo)"
+        [ngClass]="{
+          'complete-button': !todo.completed,
+          'undo-button': todo.completed
+        }"
+      >
+        {{ todo.completed ? 'Tamamlanmadı olarak işaretle' : 'Tamamla' }}
+      </button>
+      <button (click)="deleteTodo(todo.id)" class="delete-button">Sil</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+.popup-header {
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+}
+
+.popup-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 16px;
+  border-top: 1px solid #ddd;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #eee;
+  color: #333;
+}
+
+.form-checkbox {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-popup {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  z-index: 9999;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+  width: 400px;
+  border-radius: 8px;
+}
